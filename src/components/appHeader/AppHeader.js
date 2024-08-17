@@ -13,14 +13,16 @@ const AppHeader = () => {
             <nav className="app__menu">
                 <ul>
                     <li><NavLink 
-                            end 
-                            // activeStyle={{'color': '#9f0013'}} 
-                            style={({isActive}) => ({color: isActive ? '#9f0013' : 'inherit'})}
+                            exact
+                            activeStyle={{'color': '#9f0013'}} 
+                            // end 
+                            // style={({isActive}) => ({color: isActive ? '#9f0013' : 'inherit'})} (закомментированное - для 6-й версии router-dom )
                             to="/">Characters</NavLink></li>
                     /
-                    <li><NavLink 
-                            end 
-                            style={({isActive}) => ({color: isActive ? '#9f0013' : 'inherit'})}
+                    <li><NavLink
+                             activeStyle={{'color': '#9f0013'}} 
+                            // end 
+                            // style={({isActive}) => ({color: isActive ? '#9f0013' : 'inherit'})}
                             to="/comics">Comics</NavLink>
                     </li>
                 </ul>
