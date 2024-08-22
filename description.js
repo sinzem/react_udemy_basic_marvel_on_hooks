@@ -15,3 +15,7 @@
 // npm i react-router-dom@5.3.0 --save (для примера работы с маршрутами в 5-й версии)
 // npm i react-router-dom@6.26.1 --save
 
+// npm i --save formik - для работы с формами
+// npm i --save yup - дополнительный к формику для валидации форм
+
+// npm install --save react-helmet - для заголовков страниц
