@@ -4,6 +4,9 @@ import {BrowserRouter as Router, Route, Switch/*  Routes */} from "react-router-
 // import {MainPage, ComicsPage, SingleComicPage, Page404} from "../pages"; /* (вариант без ленивой загрузки) */
 import AppHeader from "../appHeader/AppHeader";
 import Spinner from "../spinner/Spinner";
+import SinglePage from "../pages/SinglePage";
+import SingleComicLayout from "../pages/singleComicLayout/SingleComicLayout";
+import SingleCharacterLayout from "../pages/singleCharacterLayout/SingleCharacterLayout";
 
 /* (ленивая загрузка/импорты - если страницы экспортированы не по дефолту(в д.с через сборочный index.js), все они в финальной сборке попадут в один файл, что увеличит время начальной загрузки, но в lazy-варианте все страницы будут представлять отдельные файлы и подгружаться по необходимости(в роутах оборачиваем страницы в Suspense) - в небольших SPA с этим можно не заморачиваться) */
 const Page404 = lazy(() => import('../pages/404'));
@@ -30,8 +33,14 @@ const App = () => {
                             <Route exact path="/"> {/* (главную страницу помещаем последней в списке роутов - ее путь входит в пути всех остальных, это может давать проблему при загрузке страниц(switch и exact делают строгое сравнение)) */}
                                 <MainPage />
                             </Route>
-                            <Route exact path="/comics/:comicId">
+                            {/* <Route exact path="/comics/:comicId">
                                 <SingleComicPage />
+                            </Route> */} {/* (заменен на SinglePage) */}
+                            <Route exact path="/comics/:id">
+                                <SinglePage Component={SingleComicLayout} dataType="comic" />
+                            </Route>
+                            <Route exact path="/characters/:id">
+                                <SinglePage Component={SingleCharacterLayout} dataType="character" />
                             </Route>
                             <Route path="*">
                                 <Page404 />
