@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 
+import setContent from '../../utils/setContent';
 import mjolnir from '../../resources/img/mjolnir.png';
 import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/Spinner';
+// import ErrorMessage from '../errorMessage/ErrorMessage';
+// import Spinner from '../spinner/Spinner';
 
 import './randomChar.scss';
 
@@ -11,7 +12,7 @@ const RandomChar = () => {
 
     const [char, setChar] = useState(null);
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {/* loading, error, */ getCharacter, clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -32,19 +33,21 @@ const RandomChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); 
         getCharacter(id) /* (сервис вернет обьект, помещаем его целиком в состояния) */
             .then(onCharLoaded) /* (в промисах пришедший результат автоматически подставится аргументом в вызываемую функцию) */
+            .then(() => setProcess('confirmed'));
     }
 
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error) && char ? <View char={char} /> : null;
+    // const errorMessage = error ? <ErrorMessage /> : null;
+    // const spinner = loading ? <Spinner /> : null;
+    // const content = !(loading || error) && char ? <View char={char} /> : null;
 
 
     return (
         <div className="randomchar">
 
-            {errorMessage}
+            {/* {errorMessage}
             {spinner}
-            {content}
+            {content} */}
+            {setContent(process, View, char)}
 
             <div className="randomchar__static">
                 <p className="randomchar__title">
@@ -65,9 +68,9 @@ const RandomChar = () => {
 
 }
 
-const View = ({char}) => {
+const View = ({data}) => {
 
-    const {name, description, thumbnail, homepage, wiki} = char; 
+    const {name, description, thumbnail, homepage, wiki} = data; 
 
     const processedDescription = (!description || description.length === 0) 
                                 ? "There is not information about this hero here" 
