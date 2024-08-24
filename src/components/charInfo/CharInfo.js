@@ -44,6 +44,7 @@ const CharInfo = (props) => {
             {errorMessage}
             {spinner}
             {content} */}
+            {/* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent - вместо них теперь передаем в функцию setContent нужный компонент и функция отрисует нужный компонент ориентируясь на это состояние) */}
             {setContent(process, View, char)}
         </div>
     )

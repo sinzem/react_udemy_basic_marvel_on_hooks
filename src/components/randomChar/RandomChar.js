@@ -12,6 +12,7 @@ const RandomChar = () => {
 
     const [char, setChar] = useState(null);
 
+    /* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent) */
     const {/* loading, error, */ getCharacter, clearError, process, setProcess} = useMarvelService();
 
     useEffect(() => {
@@ -47,6 +48,7 @@ const RandomChar = () => {
             {/* {errorMessage}
             {spinner}
             {content} */}
+            {/* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent - вместо них теперь передаем в функцию setContent нужный компонент и функция отрисует нужный компонент ориентируясь на это состояние) */}
             {setContent(process, View, char)}
 
             <div className="randomchar__static">

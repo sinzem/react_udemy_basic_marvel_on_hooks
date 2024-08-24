@@ -6,6 +6,7 @@ import useMarvelService from '../../services/MarvelService';
 // import ErrorMessage from '../errorMessage/ErrorMessage';
 import AppBanner from "../appBanner/AppBanner";
 import setContent from '../../utils/setContent';
+import { Helmet } from 'react-helmet';
 
 const SinglePage = ({Component, dataType}) => {
         const {id} = useParams();
@@ -38,11 +39,18 @@ const SinglePage = ({Component, dataType}) => {
 
         return (
             <>
+                <Helmet>
+                    <meta
+                        name="description"
+                        content={`${data?.name} page`}
+                    />
+                    <title>{data?.name}</title>
+                </Helmet>
                 <AppBanner/>
                 {/* {errorMessage}
                 {spinner}
                 {content} */}
-                {setContent(process. Component, data)}
+                {setContent(process, Component, data)}
             </>
         )
 }

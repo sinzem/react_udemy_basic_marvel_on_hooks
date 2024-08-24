@@ -1,6 +1,7 @@
 import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
+    /* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent) */
  /*    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null); */
     const [process, setProcess] = useState("waiting");

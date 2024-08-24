@@ -2,7 +2,7 @@ import { PUBLIC_KEY } from "../env/key.js";
 import { useHttp } from "../hooks/http.hook.js";
 
 const useMarvelService = () => {
-
+    /* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent) */
     const {/* loading,  error, */ request, clearError, process, setProcess} = useHttp();
 
     const _apiBase = 'https://gateway.marvel.com:443/v1/public/';

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types'; /* (модуль для проверки типов входящих пропсов, подключение внизу перед экспортом) */
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
@@ -31,7 +31,7 @@ const CharList = (props) => {
     const [offset, setOffset] = useState(210);
     const [charEnded, setCharEnded] = useState(false);
 
-    const {loading, error, getAllCharacters, process, setProcess} = useMarvelService();
+    const {/* loading, error, */ getAllCharacters, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
@@ -101,8 +101,11 @@ const CharList = (props) => {
         )
     }
 
-    // const items = renderItems(charList);
+    const elements = useMemo(() => {
+        return setContent(process, () => renderItems(charList), newItemLoading)
+    }, [process]) /* (состояния loading и error заменены на FSM - конечный автомат - состояние из utils/setContent - вместо них теперь передаем в функцию setContent нужный компонент и функция отрисует нужный компонент ориентируясь на это состояние, функцию setContent в д.с меморизируем(при изменении родительского блока происходит и рендер этого компонента, также из-за этого теряется фокус)) */
 
+    // const items = renderItems(charList);
     // const errorMessage = error ? <ErrorMessage /> : null;
     // const spinner = loading && !newItemLoading ? <Spinner /> : null;
 
@@ -112,7 +115,7 @@ const CharList = (props) => {
             {/* {errorMessage}
             {spinner}
             {items} */}
-            {setContent(process, () => renderItems(charList), newItemLoading)}
+            {elements}
             
             <button 
                 disabled={newItemLoading}
