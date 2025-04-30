@@ -1,4 +1,4 @@
-// import { PUBLIC_KEY } from "../env/key.js";
+import { PUBLIC_KEY } from "../env/key.js";
 import { useHttp } from "../hooks/http.hook.js";
 
 const useMarvelService = () => {
@@ -9,29 +9,29 @@ const useMarvelService = () => {
     const _baseOffset = 210;
 
     const getAllCharacters = async (offset = _baseOffset) => {
-        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${process.env.PUBLIC_KEY}`);
+        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${PUBLIC_KEY}`);
         return res.data.results.map(_transformCharacter);
     }
 
     const getCharacterByName = async (name) => {
-        const res = await request(`${_apiBase}characters?name=${name}&${process.env.PUBLIC_KEY}`);
+        const res = await request(`${_apiBase}characters?name=${name}&${PUBLIC_KEY}`);
         return res.data.results.map(_transformCharacter);
     }
 
     const getCharacter = async (id) => {
-        const res = await request(`${_apiBase}characters/${id}id?${process.env.PUBLIC_KEY}`);
+        const res = await request(`${_apiBase}characters/${id}id?${PUBLIC_KEY}`);
         return _transformCharacter(res.data.results[0]);
     }
 
     const getAllComics = async (offset = 0) => {
 		const res = await request(
-			`${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${process.env.PUBLIC_KEY}`
+			`${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${PUBLIC_KEY}`
 		);
 		return res.data.results.map(_transformComics);
 	}
 
 	const getComics = async (id) => {
-		const res = await request(`${_apiBase}comics/${id}?${process.env.PUBLIC_KEY}`);
+		const res = await request(`${_apiBase}comics/${id}?${PUBLIC_KEY}`);
         return _transformComics(res.data.results[0]);
     }
 	
